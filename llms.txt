@@ -2,7 +2,7 @@
 
 > Interactive wireframe simulator for learning UI component names
 
-- Live: https://anatomy.neorgon.com/
+- Live: https://uianatomy.neorgon.com/
 - Part of the Neorgon tool suite (free, no signup, runs in your browser): https://neorgon.com/
 - Keywords: wireframe, learning, components
 

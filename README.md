@@ -18,7 +18,7 @@ Learn UI component names by hovering a live wireframe mockup
 [badge-claude]:  https://img.shields.io/badge/Claude_Code-CC785C?style=for-the-badge&logo=anthropic&logoColor=white
 [badge-license]: https://img.shields.io/badge/license-MIT-404040?style=for-the-badge
 
-[url-site]:   https://anatomy.neorgon.com/
+[url-site]:   https://uianatomy.neorgon.com/
 [url-html]:   #
 [url-css]:    #
 [url-js]:     #
@@ -34,7 +34,7 @@ UI Anatomy is an interactive wireframe simulator where hovering any part of a wh
 
 The app ships many layout families (core site types plus industry templates such as SaaS, ecommerce, and game studio), each exposing a curated set of hover targets. A separate **Learning Hub** (`learning/`) adds checklists, anti-patterns, prompt recipes, and framework notes.
 
-**Live:** anatomy.neorgon.com
+**Live:** uianatomy.neorgon.com
 
 ---
 
@@ -67,7 +67,7 @@ Then open [http://localhost:8820](http://localhost:8820).
 ![Architecture](docs/architecture.svg)
 
 ```
-anatomy-site/
+ui-anatomy-site/
 ├── index.html              # Wireframe app shell + JSON-LD
 ├── learning/               # Learning Hub (tabs, checklist, prompts, …)
 │   ├── index.html

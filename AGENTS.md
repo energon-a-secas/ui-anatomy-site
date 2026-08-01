@@ -8,7 +8,7 @@ Guide for AI agents working in the UI Anatomy codebase.
 
 **UI Anatomy** is an interactive educational tool that teaches UI component vocabulary through hoverable wireframe mockups. Users hover over parts of multiple wireframe layouts to learn component names, variants, and AI prompt tips. **NEW**: Includes a Website Checklist tab for launch preparation.
 
-- **Live site**: https://anatomy.neorgon.com/
+- **Live site**: https://uianatomy.neorgon.com/
 - **Tech stack**: Vanilla HTML, CSS, JavaScript (ES6 modules)
 - **No build step**: Direct browser execution via HTTP server
 - **Total codebase**: ~3,000 lines (JS + CSS + HTML)
@@ -58,7 +58,7 @@ This project has **no build step, no test suite, no linter, and no package.json*
 ### File Structure
 
 ```
-anatomy-site/
+ui-anatomy-site/
 ├── index.html              # App shell (~130 lines)
 ├── css/
 │   └── style.css           # All styles: Neorgon dark theme + wireframe elements
@@ -75,7 +75,7 @@ anatomy-site/
 │   ├── architecture.mmd    # Mermaid source
 │   └── architecture.svg    # Generated diagram
 ├── Makefile                # make serve (port 8820), make kill
-├── CNAME                   # anatomy.neorgon.com
+├── CNAME                   # uianatomy.neorgon.com
 ├── favicon.ico
 ├── energon-classic-logo.png
 ├── og-preview.jpg          # OG image (1200x630)
@@ -666,7 +666,7 @@ Edit `css/style.css`. Use existing CSS custom properties where possible.
 ### GitHub Pages
 
 - **Branch**: `main` (root directory)
-- **Custom domain**: Configured via `CNAME` file (anatomy.neorgon.com)
+- **Custom domain**: Configured via `CNAME` file (uianatomy.neorgon.com)
 - **No build step**: Files served directly as-is
 
 ### Updating Live Site

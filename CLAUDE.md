@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 UI Anatomy is a zero-dependency, ES-module-based interactive wireframe simulator. Users hover over white outlined mockup components to learn their names, variants, and AI prompt tips. The app teaches UI vocabulary without build tools or dependencies.
 
-**Live:** anatomy.neorgon.com
+**Live:** uianatomy.neorgon.com
 
 **Run locally:** `make serve` → http://localhost:8820 (or `python3 -m http.server 8820`)
 
@@ -15,7 +15,7 @@ UI Anatomy is a zero-dependency, ES-module-based interactive wireframe simulator
 ### Modular ES Module Structure
 
 ```
-anatomy-site/
+ui-anatomy-site/
 ├── index.html          # App shell (~140 lines with metadata)
 ├── css/
 │   └── style.css       # Single stylesheet: Neorgon dark theme + wireframe styling
