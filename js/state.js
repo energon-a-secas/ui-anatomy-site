@@ -8,4 +8,6 @@ export const state = {
   searchQuery: '',
   dummyMode: true,       // Show dummy content by default
   heroBg: 'solid',
+  quizMode: false,       // Quiz panel replaces the component browser; mockup clicks answer questions
+  quizStats: { answered: 0, correct: 0, streak: 0, best: 0 },  // hydrated from localStorage by quiz.js
 };

@@ -56,6 +56,8 @@
   <link rel="stylesheet" href="css/neorgon-themes.css">
   <link rel="stylesheet" href="https://cdn.neorgon.org/v1.0.0/header/season.css">
   <script defer src="js/neorgon-header.js"></script>
+  <link rel="stylesheet" href="css/neorgon-footer.css">
+  <script defer src="js/neorgon-footer.js"></script>
 </head>
 <body>
 
@@ -116,6 +118,14 @@
           <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h4a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
           Components
         </button>
+        <button type="button" class="ctrl-btn" id="quizToggle" title="Quiz yourself on the components in this layout" aria-pressed="false">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="10" r="2.4"/></svg>
+          Quiz
+        </button>
+        <button type="button" class="ctrl-btn" id="promptBtn" title="Copy an AI prompt describing this layout">
+          <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M5.5 2.5h6l3.5 3.5v11.5h-9.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 9.5h4.5M8 12.5h4.5M8 15.5h2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          AI Prompt
+        </button>
       </div>
     </div>
 
@@ -129,6 +139,9 @@
         </div>
         <div class="browser-list" id="browserList"></div>
       </aside>
+
+      <!-- Quiz panel (swaps in for the browser while quiz mode is on) -->
+      <aside class="comp-browser quiz-panel hidden" id="quizPanel" aria-label="Quiz panel"></aside>
 
       <!-- Wireframe mockup area -->
       <div class="mockup-area" id="mockupArea" role="region" aria-label="Wireframe mockup" aria-describedby="mockupHint">
@@ -166,12 +179,23 @@
     </div>
   </div>
 
-  <footer class="info-footer">
-    <button type="button" class="footer-tool-btn" id="glossaryExportBtn">Download component glossary (JSON)</button>
-    <span class="footer-sep" aria-hidden="true">·</span>
-    <a class="footer-link" href="learning/">Checklist &amp; learning guides</a>
-    <span class="footer-sep" aria-hidden="true">·</span>
-    Part of <a class="footer-link" href="https://neorgon.com/">Neorgon</a>
+  <!-- Prompt export modal -->
+  <div class="prompt-overlay hidden" id="promptOverlay">
+    <div class="prompt-modal" role="dialog" aria-modal="true" aria-labelledby="promptTitle">
+      <div class="prompt-modal-head">
+        <h2 id="promptTitle">AI prompt — <span id="promptLayoutName"></span></h2>
+        <button type="button" class="prompt-close" id="promptCloseBtn" aria-label="Close">×</button>
+      </div>
+      <textarea id="promptText" class="prompt-text" spellcheck="false" aria-label="Generated AI prompt"></textarea>
+      <div class="prompt-modal-foot">
+        <span class="prompt-note">Built from the components visible in the mockup — edit freely before copying.</span>
+        <button type="button" class="ctrl-btn" id="promptCopyBtn">Copy prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="neo-footer" data-footer-mode="minimal">
+    Download component glossary (JSON) · Checklist &amp; learning guides
   </footer>
 
   <script type="module" src="js/app.js"></script>

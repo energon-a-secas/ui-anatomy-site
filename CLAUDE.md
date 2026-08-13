@@ -16,37 +16,42 @@ UI Anatomy is a zero-dependency, ES-module-based interactive wireframe simulator
 
 ```
 ui-anatomy-site/
-├── index.html          # App shell (~140 lines with metadata)
+├── index.html          # App shell (~200 lines with metadata)
 ├── css/
 │   └── style.css       # Single stylesheet: Neorgon dark theme + wireframe styling
 └── js/
     ├── app.js          # Entry point: wires render + events on DOMContentLoaded
     ├── state.js        # Central state object (active layout, hovered comp, toggles)
-    ├── data.js         # 40+ COMPONENT definitions, LAYOUT_COMPONENTS, CATEGORIES, + 3 extra layouts
-    ├── layouts.js      # Wireframe HTML generators for landing/corporate/startup layouts
-    ├── layouts2.js     # generators for portfolio/blog plus components/login/checklist layouts
+    ├── data.js         # 50+ COMPONENT definitions, LAYOUT_COMPONENTS, CATEGORIES, checklist + mistakes data
+    ├── layouts.js      # Wireframe HTML generators (landing/corporate/startup); layouts2–6.js cover the rest
     ├── render.js       # All rendering: tabs, mockup, browser, tooltip, highlight sync
-    ├── events.js       # Event delegation: hover, clicks, search
-    └── utils.js        # debounce, escHtml
+    ├── quiz.js         # Quiz mode: question generation, scoring (localStorage quizStats), panel render
+    ├── prompt.js       # Layout → AI prompt export: builds prose from the rendered DOM, modal + clipboard
+    ├── events.js       # Event delegation: hover, clicks, search, quiz + prompt wiring
+    └── utils.js        # debounce, escHtml, prefersReducedMotion
 ```
 
 **Key patterns:**
 - State is a mutable exported object; modules import and mutate it directly
 - Render functions read `state` and write to DOM via `innerHTML`; no virtual DOM
 - Event delegation on containers; no per-element listeners
-- No localStorage; state resets on reload (except checklist checkmarks)
+- localStorage is used only for checklist checkmarks (`checklistChecked`) and quiz stats (`quizStats`); everything else resets on reload
+- Quiz mode swaps the component browser for the quiz panel and suppresses tooltips (they would leak answers); quiz questions read the component pool from the rendered DOM, as does the prompt export — both stay in sync with the visible mockup by construction
 
 ### State Shape
 
 ```js
 state = {
-  activeLayout: 'landing',    // one of: landing, corporate, startup, portfolio, blog, components, login, checklist
+  activeLayout: 'landing',    // one of the 21 layout ids (8 basic + 13 industry; see LAYOUTS in data.js)
   activeComp: null,           // id string of hovered component
+  pinnedComp: null,           // id of clicked/pinned component
   browserOpen: true,          // sidebar toggle
   outlinesOn: true,           // show wireframe boundaries
   searchQuery: '',            // component search filter
   dummyMode: true,            // render readable text + images vs placeholders
   heroBg: 'solid',            // hero background style (swatch picker)
+  quizMode: false,            // quiz panel replaces browser; mockup clicks answer questions
+  quizStats: { ... },         // answered/correct/streak/best, hydrated from localStorage by quiz.js
 }
 ```
 

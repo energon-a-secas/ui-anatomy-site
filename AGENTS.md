@@ -15,14 +15,16 @@ Guide for AI agents working in the UI Anatomy codebase.
 - **Deployment**: GitHub Pages with custom domain
 
 ### Key Features
-1. **8 wireframe layouts**: Landing, Corporate, Startup, Portfolio, Blog, Component Library, Login, Website Checklist
-2. **40+ component definitions**: name, variants, descriptions, AI prompt tips
+1. **21 wireframe layouts**: 8 basic types (Landing, Corporate, Startup, Portfolio, Blog, Component Library, Login, Link in Bio) plus 13 industry templates (SaaS, Fintech, Ecommerce, Gaming, Docs, …)
+2. **50+ component definitions**: name, variants, descriptions, AI prompt tips
 3. **Interactive hover**: hover mockup elements to learn component names
 4. **Component browser**: searchable sidebar with all components
-5. **Website Checklist**: 45+ items for SEO, technical setup, analytics, legal, performance, security, accessibility, social media
-6. **Dummy mode**: toggle between wireframe lines and realistic content
-7. **Show outlines**: reveal all component boundaries
-8. **Hero backgrounds**: test different hero section styles
+5. **Quiz mode**: recall practice over the live wireframe (name-the-part / find-the-part), score + streak persisted in localStorage
+6. **AI prompt export**: generates a copy-ready prompt describing the visible layout, components in page order
+7. **Website Checklist** (Learning Hub): 45+ items for SEO, technical setup, analytics, legal, performance, security, accessibility, social media
+8. **Dummy mode**: toggle between wireframe lines and realistic content
+9. **Show outlines**: reveal all component boundaries
+10. **Hero backgrounds**: test different hero section styles
 
 ---
 

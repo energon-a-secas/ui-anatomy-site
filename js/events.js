@@ -2,6 +2,8 @@ import { state } from './state.js';
 import { LAYOUTS, COMPONENTS } from './data.js';
 import { renderLayoutNav, renderMockup, renderBrowser, renderHeroBgPicker, applyHeroBg,
          showTooltip, hideTooltip, syncBrowserHighlight } from './render.js';
+import { startQuiz, stopQuiz, answerChoice, answerFind, skipQuestion, onMockupChanged, quizExpectsClick } from './quiz.js';
+import { openPrompt, closePrompt, isPromptOpen, copyPrompt } from './prompt.js';
 import { debounce, prefersReducedMotion } from './utils.js';
 
 let currentHovered = null;
@@ -47,6 +49,7 @@ function selectLayout(layoutId) {
   renderBrowser();
   hideTooltip();
   currentHovered = null;
+  onMockupChanged();
 }
 
 function activateBrowserItem(item) {
@@ -62,6 +65,7 @@ function activateBrowserItem(item) {
       renderBrowser();
       hideTooltip();
       currentHovered = null;
+      onMockupChanged();
 
       setTimeout(() => {
         const target = document.querySelector(`#mockupFrame [data-comp="${id}"]`);
@@ -98,6 +102,7 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeAllDropdowns();
+    if (isPromptOpen()) closePrompt();
   }
 });
 
@@ -205,6 +210,7 @@ export function initEvents() {
       return;
     }
     comp.classList.add('hovered');
+    if (state.quizMode) return;  // hover outline stays, but tooltips would leak answers
     const id = comp.dataset.comp;
     state.activeComp = id;
     showTooltip(id, comp);
@@ -229,6 +235,11 @@ export function initEvents() {
 
     e.stopPropagation();
     const id = comp.dataset.comp;
+
+    if (state.quizMode) {
+      if (quizExpectsClick()) answerFind(id, comp);
+      return;
+    }
 
     if (state.pinnedComp === id) {
       state.pinnedComp = null;
@@ -299,6 +310,7 @@ export function initEvents() {
     renderMockup();
     hideTooltip();
     currentHovered = null;
+    onMockupChanged();
   });
 
   document.getElementById('heroBgPicker').addEventListener('click', e => {
@@ -328,6 +340,7 @@ export function initEvents() {
     renderMockup();
     renderBrowser();
     syncBrowserHighlight(null);
+    onMockupChanged();
   });
 
   const glossaryExportBtn = document.getElementById('glossaryExportBtn');
@@ -354,4 +367,26 @@ export function initEvents() {
       URL.revokeObjectURL(u);
     });
   }
+
+  // ── Quiz mode ────────────────────────────────────────────────────────────
+  document.getElementById('quizToggle').addEventListener('click', () => {
+    if (state.quizMode) stopQuiz();
+    else startQuiz();
+  });
+
+  // Delegated: quiz.js re-renders the panel per question
+  document.getElementById('quizPanel').addEventListener('click', e => {
+    const choice = e.target.closest('.quiz-choice');
+    if (choice) { answerChoice(choice); return; }
+    if (e.target.closest('#quizSkipBtn')) { skipQuestion(); return; }
+    if (e.target.closest('#quizEndBtn')) { stopQuiz(); }
+  });
+
+  // ── Prompt export modal ──────────────────────────────────────────────────
+  document.getElementById('promptBtn').addEventListener('click', openPrompt);
+  document.getElementById('promptCloseBtn').addEventListener('click', closePrompt);
+  document.getElementById('promptCopyBtn').addEventListener('click', e => copyPrompt(e.currentTarget));
+  document.getElementById('promptOverlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closePrompt();
+  });
 }

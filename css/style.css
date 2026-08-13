@@ -14,7 +14,7 @@
   --accent: #d946ef;
   --accent-bright: #e879f9;
   --accent-dim: rgba(217, 70, 239, 0.15);
-  --font: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --radius-sm: 6px; --radius-md: 8px; --radius: 10px; --radius-lg: 15px;
   --space-6: 24px;
   --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -899,14 +899,6 @@ body {
 .wf-alert.error { background: #fef2f2; border-left: 3px solid #ef4444; color: #b91c1c; }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
-.info-footer {
-  text-align: center; padding: 20px var(--space-6) 28px;
-  color: var(--text-muted); font-size: .78em; line-height: 1.8;
-  border-top: 1px solid var(--border-subtle); margin-top: 48px;
-}
-.footer-link { color: var(--text-muted); text-decoration: none; transition: color var(--dur); }
-.footer-link:hover { color: var(--text-secondary); text-decoration: underline; }
-.footer-link:focus-visible { color: var(--accent-bright); text-decoration: underline; }
 .footer-sep { margin: 0 0.4em; color: var(--text-muted); user-select: none; }
 .footer-tool-btn {
   background: none;
@@ -2058,3 +2050,111 @@ body {
   display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 
+
+/* ── Quiz mode ───────────────────────────────────────────────────────────── */
+.quiz-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 12px 14px; border-bottom: 1px solid var(--border-subtle);
+}
+.quiz-score { font-size: 0.78rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.quiz-end {
+  background: none; border: 1px solid var(--border-subtle); color: var(--text-muted);
+  font-size: 0.72rem; font-family: var(--font); padding: 4px 10px;
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: color var(--dur), border-color var(--dur);
+}
+.quiz-end:hover { color: var(--text-secondary); border-color: var(--border); }
+.quiz-prompt {
+  padding: 16px 14px 10px; font-size: 0.92rem; line-height: 1.5;
+  color: var(--text-primary);
+}
+.quiz-prompt strong { color: var(--accent-bright); }
+.quiz-aka { display: block; font-size: 0.76rem; color: var(--text-muted); margin-top: 4px; }
+.quiz-choices { display: flex; flex-direction: column; gap: 8px; padding: 6px 14px 14px; }
+.quiz-choice {
+  text-align: left; padding: 10px 12px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface-1);
+  color: var(--text-secondary); font-size: 0.85rem; font-family: var(--font);
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur), color var(--dur);
+}
+.quiz-choice:hover:not(:disabled) { border-color: var(--accent); color: #fff; background: var(--surface-2); }
+.quiz-choice:disabled { cursor: default; opacity: 0.85; }
+.quiz-choice.correct { border-color: #10b981; background: rgba(16,185,129,.12); color: #6ee7b7; opacity: 1; }
+.quiz-choice.wrong { border-color: #ef4444; background: rgba(239,68,68,.1); color: #fca5a5; opacity: 1; }
+.quiz-feedback {
+  min-height: 2.6em; padding: 0 14px; font-size: 0.8rem;
+  color: var(--text-secondary); line-height: 1.5;
+}
+.quiz-skip {
+  margin: 8px 14px 16px; align-self: flex-start;
+  background: none; border: none; color: var(--text-muted);
+  font-size: 0.76rem; font-family: var(--font); cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.quiz-skip:hover { color: var(--text-secondary); }
+
+[data-comp].quiz-target {
+  outline: 2px solid var(--accent-bright); outline-offset: 2px;
+  animation: quizPulse 1.2s ease-in-out infinite;
+}
+@keyframes quizPulse {
+  0%, 100% { outline-color: var(--accent-bright); }
+  50% { outline-color: rgba(232,121,249,.25); }
+}
+[data-comp].quiz-flash-right {
+  outline: 2px solid #10b981; outline-offset: 2px; background: rgba(16,185,129,.12);
+}
+[data-comp].quiz-flash-wrong {
+  outline: 2px solid #ef4444; outline-offset: 2px; background: rgba(239,68,68,.12);
+}
+
+.ctrl-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
+/* ── Prompt export modal ─────────────────────────────────────────────────── */
+.prompt-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(2,4,12,.72);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.prompt-overlay.hidden { display: none; }
+.prompt-modal {
+  width: min(680px, 100%); max-height: 86vh;
+  display: flex; flex-direction: column;
+  background: #0a0f1e; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: 0 24px 60px rgba(0,0,0,.5);
+}
+.prompt-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--border-subtle);
+}
+.prompt-modal-head h2 { font-size: 1rem; font-weight: 600; }
+.prompt-close {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.4rem; line-height: 1; cursor: pointer;
+  padding: 4px 8px; border-radius: var(--radius-sm);
+  transition: color var(--dur), background var(--dur);
+}
+.prompt-close:hover { color: #fff; background: var(--surface-2); }
+.prompt-text {
+  flex: 1; min-height: 300px; margin: 16px 18px; padding: 12px 14px;
+  background: rgba(0,0,0,.3); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm); color: var(--text-secondary);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.8rem; line-height: 1.6; resize: vertical;
+}
+.prompt-modal-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 0 18px 16px;
+}
+.prompt-note { font-size: 0.74rem; color: var(--text-muted); }
+#promptCopyBtn.copied { color: #6ee7b7; border-color: #10b981; }
+
+/* Quiz panel becomes a bottom sheet where the sidebar is hidden */
+@media (max-width: 768px) {
+  .quiz-panel:not(.hidden) {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0;
+    width: auto; max-height: 48vh; overflow-y: auto; z-index: 400;
+    background: #0a0f1e; border-right: none; border-top: 1px solid var(--border);
+  }
+}
