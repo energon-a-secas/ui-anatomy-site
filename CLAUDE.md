@@ -36,7 +36,7 @@ ui-anatomy-site/
 - Render functions read `state` and write to DOM via `innerHTML`; no virtual DOM
 - Event delegation on containers; no per-element listeners
 - localStorage is used only for checklist checkmarks (`checklistChecked`) and quiz stats (`quizStats`); everything else resets on reload
-- Quiz mode swaps the component browser for the quiz panel and suppresses tooltips (they would leak answers); quiz questions read the component pool from the rendered DOM, as does the prompt export — both stay in sync with the visible mockup by construction
+- Quiz mode swaps the component browser for the quiz panel and suppresses tooltips (they would leak answers); quiz questions read the component pool from the rendered DOM, as does the prompt export. Both stay in sync with the visible mockup by construction
 
 ### State Shape
 
