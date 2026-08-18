@@ -22,3 +22,11 @@ blueprints/
 .env.*
 serve.py
 server.pid
+
+# ── Neorgon base (enforced by smoke check 20) ─────────────────────────────────
+!.env.example
+.forge/
+__pycache__/
+*.py[cod]
+skills-archived/
+*.log
