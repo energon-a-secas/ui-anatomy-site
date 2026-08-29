@@ -135,7 +135,7 @@ function renderPanel() {
     </div>
     ${body}
     <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
-    <button type="button" class="quiz-skip" id="quizSkipBtn">Skip — show answer</button>`;
+    <button type="button" class="quiz-skip" id="quizSkipBtn">Skip, show answer</button>`;
   renderScore();
 }
 
@@ -165,7 +165,7 @@ export function answerChoice(btn) {
   });
 
   const name = COMPONENTS[question.compId].name;
-  feedback(right ? `Correct — that's the ${name}.` : `Not quite — the highlight is the ${name}.`);
+  feedback(right ? `Correct: that's the ${name}.` : `Not quite: the highlight is the ${name}.`);
   renderScore();
   advanceTimer = setTimeout(nextQuestion, 1500);
 }
@@ -179,11 +179,11 @@ export function answerFind(compId, el) {
   const name = COMPONENTS[question.compId].name;
   if (right) {
     targetEls(compId).forEach(t => t.classList.add('quiz-flash-right'));
-    feedback(`Correct — that's the ${name}.`);
+    feedback(`Correct: that's the ${name}.`);
   } else {
     el.classList.add('quiz-flash-wrong');
     targetEls(question.compId).forEach(t => t.classList.add('quiz-target'));
-    feedback(`That's the ${COMPONENTS[compId].name} — the ${name} is now highlighted.`);
+    feedback(`That's the ${COMPONENTS[compId].name}: the ${name} is now highlighted.`);
   }
   renderScore();
   advanceTimer = setTimeout(nextQuestion, 1700);

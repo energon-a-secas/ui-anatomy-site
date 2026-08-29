@@ -43,7 +43,7 @@ The app ships many layout families (core site types plus industry templates such
 - **Wireframe explorer**: multiple layouts; hover any region to see its UI vocabulary, variants, and prompt tips
 - **50+ component definitions**: name, alternate names, description, variants, and prompt tip per component (see JSON glossary export in the site footer)
 - **Component browser**: searchable sidebar for the active layout; syncs with hover and scroll-to-target
-- **Quiz mode**: recall practice over the live wireframe — "name the highlighted part" and "click the named part" questions, with score/streak persisted locally
+- **Quiz mode**: recall practice over the live wireframe: "name the highlighted part" and "click the named part" questions, with score/streak persisted locally
 - **AI prompt export**: one click turns the visible layout into a copy-ready prompt (components in page order, with descriptions) for AI design tools
 - **Learning Hub**: production checklist (with local progress), common mistakes, AI prompt guide, patterns, design systems, accessibility notes, architecture matrix, and framework code snippets
 - **Deep links**: `?layout=` and `?comp=` on the home app; `?tab=` on the learning hub for shareable views

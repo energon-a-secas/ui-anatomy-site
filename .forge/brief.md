@@ -1,35 +1,35 @@
-# Brief — ui-anatomy-site: add quiz mode + layout prompt export; plan standalone palette/patterns site
+# Brief: ui-anatomy-site: add quiz mode + layout prompt export; plan standalone palette/patterns site
 
 Started 2026-08-09 19:37. Maintained by the `task` skill; read by `debrief` and `writeup`.
 
 ## Problem
 
-The site taught UI vocabulary by exposure only — hover, read, hope it sticks. Nothing tested
+The site taught UI vocabulary by exposure only, hover, read, hope it sticks. Nothing tested
 recall, and the stated purpose ("know what to call things when prompting AI design tools") had
 no payoff artifact: per-component tips existed, but no way to turn a whole layout into a prompt.
-Separately: picking colors for new projects meant "pick an unused Tailwind accent" — no palette,
+Separately: picking colors for new projects meant "pick an unused Tailwind accent". No palette,
 no coherence check, no story for why the colors work.
 
 ## Approach
 
 Quiz mode: a controls-bar toggle swaps the component browser for a quiz panel over the *live*
-wireframe — alternating "name the highlighted part" (4 choices, same-category distractors) with
+wireframe: alternating "name the highlighted part" (4 choices, same-category distractors) with
 "click the named part". Tooltips are suppressed while active (they leak answers); score/streak
 persist in localStorage following the checklist precedent. On mobile the panel becomes a fixed
 bottom sheet (the sidebar is display:none ≤768px). Prompt export: a modal showing a prose prompt
-for the current layout — components extracted from the rendered DOM in page order, first-sentence
-descriptions, hero-bg style when non-solid — editable textarea + clipboard copy. Both features
+for the current layout: components extracted from the rendered DOM in page order, first-sentence
+descriptions, hero-bg style when non-solid, editable textarea + clipboard copy. Both features
 derive from the DOM rather than LAYOUT_COMPONENTS so they cannot drift from what's on screen.
 Palette tool: plan only, for a standalone site executed later via /new-project.
 
 ## Rejected
 
-- Quiz as a separate `learning/`-style page — loses the spatial association with the wireframe
+- Quiz as a separate `learning/`-style page: loses the spatial association with the wireframe
   the user was just exploring; the recall question must point at the same pixels they studied.
-- Prompt generated from `LAYOUT_COMPONENTS` data — can drift from the actual render; the DOM is
+- Prompt generated from `LAYOUT_COMPONENTS` data: can drift from the actual render; the DOM is
   the truth.
 - Palette tool inside ui-anatomy (dilutes single-purpose identity) or as skill-only (no visual
-  preview — the whole point is *seeing* colors together). Standalone site won: one job per site
+  preview: the whole point is *seeing* colors together). Standalone site won: one job per site
   is the fleet pattern, and the wireframe preview becomes its differentiator.
 
 ## Decisions
@@ -47,7 +47,7 @@ Palette tool: plan only, for a standalone site executed later via /new-project.
 Verified in headless Chromium (Playwright) against localhost:8820, 2026-08-09:
 - name-mode correct answer → Score 1/1 · Streak 1; wrong answer → 1/2, streak reset, correct
   choice revealed green
-- find-mode wrong click → "That's the Footer — the Subheadline is now highlighted", both
+- find-mode wrong click → "That's the Footer: the Subheadline is now highlighted", both
   elements marked; correct click → flash-green, Score 2/4
 - stats survive reload (localStorage `quizStats` = 4 answered / 2 correct)
 - layout switch mid-quiz regenerates the question, zero stale highlight marks
@@ -59,7 +59,7 @@ Verified in headless Chromium (Playwright) against localhost:8820, 2026-08-09:
 ## Open
 
 - `tests/test-layouts.html` is broken pre-existing (404s on `tests/js/layouts2.js`; stale import
-  names). Not fixed — flagged for the user.
+  names). Not fixed: flagged for the user.
 - `dummy-image.png` 404 referenced by the hero-bg "Photo" swatch. Pre-existing, not fixed.
 - Palette Forge is a plan, not a site: `docs/plans/2026-08-09-palette-forge-site.md`, prompt
   queue #12. Open questions in the plan: final name, fleet-JSON generator location, PNG tiles.

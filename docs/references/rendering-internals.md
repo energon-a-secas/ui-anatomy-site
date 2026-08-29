@@ -1,4 +1,4 @@
-# UI Anatomy — Rendering Internals (Level 2 reference)
+# UI Anatomy: Rendering Internals (Level 2 reference)
 
 > Moved verbatim from `CLAUDE.md` during a progressive-disclosure pass. Read this before
 > changing the rendering pipeline, layout generators (`layouts.js`/`layouts2.js`), tooltip/hover

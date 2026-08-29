@@ -14,7 +14,7 @@ export function buildLayoutPrompt() {
     const c = COMPONENTS[id];
     const cut = c.desc.indexOf('. ');
     const short = cut === -1 ? c.desc : c.desc.slice(0, cut + 1);
-    return `- ${c.name} — ${short}`;
+    return `- ${c.name}: ${short}`;
   });
 
   const parts = [
