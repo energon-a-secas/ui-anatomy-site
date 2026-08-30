@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>Test New Layouts</title>
@@ -10,15 +11,16 @@
     <div id="test-results"></div>
     
     <script type="module">
-        import { fortunelayout } from './js/layouts2.js';
-        import { ecommerceLayout } from './js/layouts2.js';
-        import { gamingLayout } from './js/layouts2.js';
-        import { saasLayout } from './js/layouts2.js';
-        import { fintechLayout } from './js/layouts2.js';
+        // Paths are ../js because this page lives in tests/. Four of these five
+        // live in layouts4.js, not layouts2.js, and the export is fortuneLayout
+        // with a capital L. Every import here was wrong on all three counts, so
+        // the page threw before it rendered a single result.
+        import { ecommerceLayout } from '../js/layouts2.js';
+        import { fortuneLayout, gamingLayout, saasLayout, fintechLayout } from '../js/layouts4.js';
         
         const results = document.getElementById('test-results');
         const layouts = [
-            { name: 'Fortune 500', fn: fortunelayout },
+            { name: 'Fortune 500', fn: fortuneLayout },
             { name: 'Ecommerce', fn: ecommerceLayout },
             { name: 'Gaming', fn: gamingLayout },
             { name: 'SaaS', fn: saasLayout },
