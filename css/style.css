@@ -176,7 +176,26 @@ body {
   color: var(--text-secondary);
 }
 
-.controls-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+/* One row of toggles. When the bar is narrower than the row (phones, narrow
+   windows), the row scrolls on its own instead of widening the page; the
+   padding keeps focus rings inside the scroller. */
+.controls-right {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  min-width: 0; max-width: 100%;
+  overflow-x: auto; scrollbar-width: thin;
+  padding: 4px 2px;
+}
+@media (max-width: 860px) {
+  .controls-right {
+    padding-inline-end: 24px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+  }
+}
+/* The component list is never shown at 768px and below, so its toggle goes too. */
+@media (max-width: 768px) {
+  #browserToggle { display: none; }
+}
 .ctrl-btn {
   display: flex; align-items: center; gap: 6px;
   padding: 6px 12px; border-radius: var(--radius-sm);
@@ -365,6 +384,12 @@ body {
 }
 .mockup-hint svg { flex-shrink: 0; margin-top: 2px; }
 .mockup-hint strong { color: var(--text-primary); font-weight: 600; }
+/* Touch wording under a coarse pointer: no hover there, and no list on a phone. */
+.mockup-hint .hint-touch { display: none; }
+@media (pointer: coarse) {
+  .mockup-hint .hint-fine { display: none; }
+  .mockup-hint .hint-touch { display: inline; }
+}
 
 .mockup-frame {
   background: #ffffff;
@@ -836,6 +861,10 @@ body {
 .hero-bg-swatch:focus-visible {
   outline: 2px solid var(--accent-bright);
   outline-offset: 2px;
+}
+/* 24px targets for a finger. */
+@media (pointer: coarse) {
+  .hero-bg-swatch { width: 24px; height: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
